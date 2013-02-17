@@ -1,46 +1,44 @@
-// Brett Jackson
-// brett@brettjackson.org
+// Alex Smith
 
 int dataPin = 8;
 int clockPin1 = 9;
 int clockPin2 = 10;
 int incSig = 0;
 int readData = 1;
+  int on=0;
 
 void setup() 
 {
   Serial.begin(9600);
-  digitalWrite(dataPin, LOW);
-  digitalWrite(clockPin1, LOW);
-  digitalWrite(clockPin2, LOW);
+  pinMode(dataPin, OUTPUT);
+  pinMode(clockPin1, OUTPUT);
+  pinMode(clockPin2, OUTPUT);
+
 }
 
 void loop()
 {
-  readData = Serial.read();
-  if (readData == 48)
-  {
+    on++;
+    if (on%2){
     digitalWrite(dataPin, LOW); 
-    Serial.println("Set data pin low.");
-  } else if (readData == 49)
-  {
+    }
+    else{
     digitalWrite(dataPin, HIGH);
-    Serial.println("Set data pin high.");
-  } else if (readData == 50)
-  {
+    }
+
     for (int i = 0; i < 8; i++)
-   {
+  {
     digitalWrite(clockPin1, HIGH);
+    delay(100);
     digitalWrite(clockPin1, LOW); 
+    delay(100);
    }
    Serial.println("Clock pin 1 toggled 8 times.");
-  } else if (readData == 51)
-  {
     digitalWrite(clockPin2, HIGH);
+    delay(100);
     digitalWrite(clockPin2, LOW);
     Serial.println("Clock pin 2 toggled once.");
+    delay(500);
   }
-  delay(300);
-}
 
 
